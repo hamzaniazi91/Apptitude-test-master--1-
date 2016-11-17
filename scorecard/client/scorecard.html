@@ -1,0 +1,87 @@
+
+
+
+<template name="scorecard">
+  {{#if isInRole 'admin' 'default-group'}}
+<!-- 
+
+<table id="click1" class="striped">
+        <thead>
+          <tr>
+              <th data-field="id">Name</th>
+              <th data-field="name">Date</th>
+              <th data-field="price">Score</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Hamza</td>
+            <td>27/06/2016</td>
+            <td >19/40</td>
+          </tr>
+          <tr>
+            <td>Anas</td>
+            <td>27/06/2016</td>
+            <td>20/40</td>
+          </tr>
+          <tr>
+            <td>Salman</td>
+            <td>27/06/2016</td>
+            <td>20/40</td>
+          </tr>
+        </tbody>
+      </table> -->
+<!--  
+{{#each myCollection2}}
+{{myCollection2}}
+{{/each}} -->
+<!-- 
+
+{{#each myCollection2}}
+  <ul class="collapsible" data-collapsible="accordion">
+    <li>
+      <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{userEmail}}</div>
+      <div class="collapsible-body"><p>Lorem ipsum dolor sit amet.</p></div>
+
+    </li>
+  </ul>
+
+  {{/each}} -->
+ <div class="collection" style="max-width: 60%;
+    margin: auto;">
+   
+{{#each myCollection2}}
+    <a href="#!" class="collection-item"><span class="new badge">{{correctScore}} /  {{userScore}}</span>{{userEmail}} </a>
+{{/each}}
+  </div>
+            
+
+<!-- {{#each myCollection2}}
+<div >
+<button data-target="{{userEmail}}" class=" collection-item"> {{userEmail}}    <span class="badge"> {{correctScore}} /  {{userScore}}</span></button>
+</div>
+{{/each}}
+ --> 
+<div style="max-width: 60%;
+    margin: auto;">
+{{> reactiveTable collection=myCollection }}
+    </div>
+
+
+
+    {{else}}
+    <div class="row">
+
+<div class="col s6 offset-s5">
+
+    <p>Please Log In As Admin To Continue</p>
+
+    </div>
+    </div>
+
+        {{/if}}
+
+
+        
+     </template>

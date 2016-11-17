@@ -1,0 +1,25 @@
+<template name="login">
+  <div class="row center-align">
+    <form id="loginForm" method="post">
+      <div class="input-field">
+        <input type="email" name="email" id="email">
+        <label for="email">Email</label>
+      </div>
+      <div class="input-field">
+        <input type="password" name="password" id="password">
+        <label for="password">Password</label>
+      </div>
+      <div>
+        <button class="btn waves-effect waves-light orange black-text" type="submit">Sign In</button>
+
+        <button class="btn waves-effect waves-light orange black-text" type="reset">Cancel</button>
+      </div>
+    </form>
+   <div class="row black-text">
+     <a href="/register" >Click Here</a> to register.
+   </div>
+   <!-- <div class="row">
+       <button class="btn blue darken-1" id="googlelogin">Sign In With Google</button>
+   </div> -->
+  </div>
+</template>

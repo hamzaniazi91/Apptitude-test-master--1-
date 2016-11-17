@@ -1,0 +1,34 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+insecure@1.0.7
+materialize:materialize
+iron:router
+aldeed:simple-schema
+aldeed:autoform
+accounts-password@1.3.1
+accounts-ui@1.1.9
+meteor-base
+mobile-experience
+mongo
+blaze-html-templates
+session
+jquery
+tracker
+logging
+reload
+random
+ejson
+spacebars
+check
+standard-minifier-css
+standard-minifier-js
+shell-server
+aslagle:reactive-table
+autopublish
+alanning:roles
+mizzao:user-status
+webtempest:animate
