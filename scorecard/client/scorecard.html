@@ -54,6 +54,10 @@
 {{#each myCollection2}}
     <a href="#!" class="collection-item"><span class="new badge">{{correctScore}} /  {{userScore}}</span>{{userEmail}} </a>
 {{/each}}
+
+ {{> defaultBootstrapPaginator pagination=templatePagination limit=10 containerClass="text-center" onClick=clickEvent}}
+
+
   </div>
             
 
@@ -63,9 +67,9 @@
 </div>
 {{/each}}
  --> 
-<div style="max-width: 60%;
+<div style="max-width: 70%;
     margin: auto;">
-{{> reactiveTable collection=myCollection }}
+{{> reactiveTable  class="bordered striped" settings=settings }}
     </div>
 
 
@@ -83,5 +87,5 @@
         {{/if}}
 
 
-        
+
      </template>

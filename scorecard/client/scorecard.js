@@ -23,6 +23,12 @@ Template.scorecard.load =function(){
 
 };
 
+Template.scorecard.created = function () {
+  this.pagination = new Meteor.Pagination(Meteor.users);
+  console.log(Meteor.users)
+  console.log("asd");
+}
+
 
 Template.scorecard.onCreated(function(){
 
@@ -32,7 +38,34 @@ Template.scorecard.onCreated(function(){
 
 Template.scorecard.helpers({
 
+  templatePagination: function () {
+    console.log(Template.instance().pagination)
+        return Template.instance().pagination;
+    },
+  documents: function () {
+    return Template.instance().pagination.getPage();
+  },
+  // optional helper used to return a callback that should be executed before changing the page
+    clickEvent: function() {
+        return function(e, templateInstance, clickedPage) {
+            e.preventDefault();
+            console.log('Changing page from ', templateInstance.data.pagination.currentPage(), ' to ', clickedPage);
+        };
+    },
 
+ settings: function () {
+        return {
+            collection: Results,
+            rowsPerPage: 10,
+            showFilter: true,
+            fields: 
+            [
+    { key: 'userId', label: 'Name' },
+    { key: 'Question', label: 'Question' },
+    { key: 'score', label: 'score' }
+]
+        };
+    },
 
  myCollection2: function () {
  	//console.log(Results.find());

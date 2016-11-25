@@ -123,6 +123,12 @@ Router.route('/questions/:_name',function(){
 
 // })
 
+Router.route('/validateDesc',function(){
+name: "a7",
+  this.render('validateDesc',{to:'maincontent'})
+
+})
+
 Router.route('/scorecard',function(){
 name: "a0",
   this.render('scorecard',{to:'maincontent'})

@@ -1,0 +1,29 @@
+<!-- validateDesc.html -->
+
+
+
+
+
+<template name="validateDesc">
+  {{#if isInRole 'admin' 'default-group'}}
+
+
+  <div class="card-panel grey darken-2 orange-text">
+		<b>{{question}}</b>
+    </div>
+		<br>
+
+
+   {{else}}
+    <div class="row">
+
+<div class="col s6 offset-s5">
+
+    <p>Please Log In As Admin To Continue</p>
+
+    </div>
+    </div>
+
+        {{/if}}
+
+     </template>

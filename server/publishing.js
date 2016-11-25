@@ -12,7 +12,7 @@
 //     return UserAudios.findOne({ userId: userId });
 // });
 
-
+new Meteor.Pagination(Meteor.users);
 
 
 Meteor.startup(function () {

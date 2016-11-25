@@ -14,7 +14,7 @@
   {{#if isInRole 'admin' 'default-group'}}
    
 
-  <div style="    float: right;">
+  <div style="    float: right; margin-right: 50px;">
       There are currently {{usersOnlineCount}} users online.
 
   <ul>
@@ -27,6 +27,7 @@
   </div>
 
   <a  href="{{pathFor route='scorecard'}}" class="btn waves-effect waves-light" >Score Card</a><br>
+  <a  href="{{pathFor route='validateDesc'}}" class="btn waves-effect waves-light" >Validate Descriptive Answers</a><br>
 
 
 
@@ -37,7 +38,7 @@
 
 <div class="col s6 offset-s3">
   <div class="input-field">
-              <input type="text" name="section" id="section" >
+              <input type="text" name="section" id="section"  >
               <label for="section">New Section</label>
                <button id="addSection" class="btn waves-effect waves-light" >Add</button>
           </div>
@@ -95,6 +96,16 @@
             <div class="collapsible-header">Add Questions</div>
        
             <div class="collapsible-body">
+
+  <p>
+      <input name="group1" type="radio" id="test1" />
+      <label for="test1">MCQ's</label>
+    </p>
+    <p>
+      <input name="group1" type="radio" id="test2" />
+      <label for="test2">Descriptive</label>
+    </p>
+
 
             <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Select Section</a>
             <br>

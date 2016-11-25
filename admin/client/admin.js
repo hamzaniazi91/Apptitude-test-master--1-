@@ -31,8 +31,8 @@ Template.questions.onRendered(function(){
 
 Template.admin.rendered = function(){
        $(document).ready(function(){
-    $('.collapsible').collapsible();
-      $('.dropdown-button').dropdown('open');
+    // $('.collapsible').collapsible();
+    //   $('.dropdown-button').dropdown('open');
   });
 
 
@@ -72,9 +72,11 @@ console.log(Roles.userIsInRole(Meteor.userId(), 'admin' ));
     console.log(sectionCursorCount);
     // initialize the plugin only when Blaze is done with DOM manipulation
     Tracker.afterFlush(function(){
+        $('.dropdown-button').dropdown('open');
       this.$(".collapsible").collapsible({
         accordion: false
       });
+    
     }.bind(this));
   }.bind(this));
 
@@ -179,8 +181,14 @@ console.log (event.currentTarget.innerText)
 		var sec = document.getElementById('section').value;
 
 		console.log(sec);
+if(!sec){
 
-		Sections.insert({section : sec , createdAt : new Date()});
+Materialize.toast('Enter Section name', 2000);
+}
+else{
+    Sections.insert({section : sec , createdAt : new Date()});
+}
+	
 
 	},
 	
