@@ -10,9 +10,12 @@ Template.login.events({
     var password = event.currentTarget.password.value;
 
     Meteor.loginWithPassword(email,password,function(err){
+      
       if(err){
         Materialize.toast(err.reason,4000);
       }
+      else 
+        Router.go('/');
     });
     return false;
   },

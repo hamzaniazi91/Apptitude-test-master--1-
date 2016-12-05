@@ -1,21 +1,62 @@
 <template name="register">
   <h2 >Register</h2>
   <div class="row center-align">
-    <form id="registerForm" method="post">
+    <form id="registerForm" method="post" autocomplete="off">
       <div class="input-field">
-        <input type="text" name="name" id="name" required>
+        <input type="text" name="name" id="name" autocomplete="false" required>
         <label for="name">Name</label>
       </div>
       <div class="input-field">
-        <input type="email" name="email" id="email" required>
+        <input type="email" name="email" id="email" autocomplete="false" required>
         <label for="email">Email</label>
+      </div>
+
+        <div class="input-field">
+        <input type="password" name="pass" id="pass" autocomplete="false" required>
+        <label for="pass">Password</label>
+      </div>
+
+
+       <div class="input-field">
+        <input type="text" name="father" id="father" required>
+        <label for="father">Father’s Name</label>
+      </div>
+
+       <div class="input-field">
+        <input type="text" name="cnic" id="cnic" required>
+        <label for="cnic">CNIC</label>
+      </div>
+
+       <div class="input-field">
+        <input type="text" name="number" id="number" required>
+        <label for="number">Contact Number</label>
+      </div>
+
+       <div class="input-field">
+        <input type="text" name="position" id="position" required>
+        <label for="position">Position Applied for</label>
+      </div>
+
+      
+
+<div class="input-field">
+        <input type="text" name="Regional" id="Regional" >
+        <label for="Regional">Regional office</label>
+      </div>
+      <div class="input-field">
+        <input type="text" name="Area" id="Area" >
+        <label for="Area">Area office</label>
+      </div>
+      <div class="input-field">
+        <input type="text" name="Department" id="Department" >
+        <label for="Department">Department</label>
       </div>
 
 
 
       <div>
-        <button class="btn waves-effect waves-light orange black-text" type="submit">Register</button>
-        <button class="btn waves-effect waves-light orange black-text" type="reset">Cancel</button>
+        <button class="btn waves-effect waves-light grey black-text" type="submit">Register</button>
+        <button class="btn waves-effect waves-light grey black-text" type="reset">Cancel</button>
       </div>
     </form>
   </div>

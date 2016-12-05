@@ -12,7 +12,7 @@
 //     return UserAudios.findOne({ userId: userId });
 // });
 
-new Meteor.Pagination(Meteor.users);
+
 
 
 Meteor.startup(function () {
@@ -22,6 +22,8 @@ Meteor.startup(function () {
 
 if(Meteor.isServer) {
 
+new Meteor.Pagination(Meteor.users);
+new Meteor.Pagination(Results);
 // in server/publish.js
 Meteor.publish(null, function (){
 	//console.log(Meteor.roles.find({}))

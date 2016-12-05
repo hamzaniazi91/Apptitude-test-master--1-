@@ -178,7 +178,7 @@ console.log("ASDAS" + answer);
   var answer = parseInt(answer1, 10);;
 				var id=event.target.choice.id
 
-console.log( "Question : "  + this.question + " Selected Answer : "  + answer  + " Actual Answer : "  + this.answer );
+console.log( "Question : "  + this.question + " Selected Answer : "  + answer  + " Actual Answer : "  + this.answer  +" "+ this.section);
 console.log("Logged In User : " + Meteor.user().emails[0].address)
 		console.log(answer);
 		// if(answer===this.answer){
@@ -221,7 +221,7 @@ if (count === 0)
     	else{
     		thisScore=0;
     	}
-	Results.insert({userId : Meteor.user().emails[0].address  , Question: this.question , SelectedAnswer:answer , ActualAnswer: this.answer , score : thisScore, createdAt : new Date()}
+	Results.insert({section :  this.section , userId : Meteor.user().emails[0].address  , Question: this.question , SelectedAnswer:answer , ActualAnswer: this.answer , score : thisScore, createdAt : new Date()}
 
 	, function( error, result) { 
     if ( error ) console.log ( error ); //info about what went wrong

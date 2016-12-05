@@ -23,6 +23,9 @@
       </a>
                         {{else}}
                             <h >[Sign-in to Continue]</h>
+                            <br>
+         <a class="btn waves-effect waves-light grey black-text" href="{{pathFor route='login'}}" type="submit">Sign In</a>
+        <a class="btn waves-effect waves-light grey black-text" href="{{pathFor route='register'}}" type="reset">Sign Up</a>
                         {{/if}}
    
     </div>

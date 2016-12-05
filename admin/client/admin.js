@@ -73,7 +73,7 @@ console.log(Roles.userIsInRole(Meteor.userId(), 'admin' ));
     // initialize the plugin only when Blaze is done with DOM manipulation
     Tracker.afterFlush(function(){
         $('.dropdown-button').dropdown('open');
-      this.$(".collapsible").collapsible({
+      $(".collapsible").collapsible({
         accordion: false
       });
     
