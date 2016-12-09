@@ -13,6 +13,8 @@ Template.register.events({
     //   }
     // })
 
+    
+
     Accounts.createUser({
       username: event.currentTarget.name.value,
       

@@ -22,14 +22,26 @@
 
 
  {{#each displaySections}}
-  <div  style="display: block;" class="center-align justified  row waves-effect waves-light">
+  <div  style="display: block;margin-bottom: 0" class="center-align justified  row waves-effect waves-light"  id="gotoQuestions" >
       <div class="col s4 offset-s4">
-        <div  id="gotoQuestions" class="card-panel teal ">
-          <a id="secID" class="white-text">{{section}}</a>
+      <div class="card-panel blue-grey darken white-text " id="{{section}}+1" style="margin-bottom: 0">
+        <div     >
+          <a id="{{_id}}" class="white-text">{{section}} {{LockSection}}</a>
         </div>
-      </div>
+        </div>
+     
     </div>
+    </div>
+    <div  style="display: block;" class="center-align justified  row waves-effect waves-light">
+      <div class="col s4 offset-s4">
+<div  id="gotoQuestionsUpdate" class="card-panel blue-grey darken white-text ">
+        <a id="secID2" class="white-text">Edit Answers {{data}}</a>
+        </div>
+   </div>
+    </div>
+
 {{/each}}
+
 
 {{/if}}
 </template>

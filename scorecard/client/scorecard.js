@@ -214,6 +214,9 @@ Template.scorecard.helpers({
       userEmail: function(){
     return this.emails[0].address;
   },
+    userCnic: function(){
+    return this.profile.cnic;
+  },
 
   userScore : function(){
 
@@ -261,11 +264,11 @@ if(totalQuestion !== 0 )
       }
 
      else if(resultDisplay >= "50"){
-      document.getElementById("fr").style.color="blue";
+      //document.getElementById("fr").style.color="blue";
       return "Passed";
     }
       else{
-       // document.getElementById("fr").style.color="red";
+       //document.getElementById("fr").style.color="red";
         return "Failed"
       }
 
@@ -323,11 +326,24 @@ Template.scorecard.events({
 
  Template.instance().pagination.filters({
             
-            "emails.address" : {$regex :event.target.value,}
-           
-       
-});
+            "emails.address" : {$regex :event.target.value,},
 
+      });
+  // Template.instance().pagination
+        console.log(event.target.value)
+        Session.set("changedName" , event.target.value)
+      },
+
+
+'input  #cnic' : function(event){
+
+  console.log(Template.instance().pagination)
+ Template.instance().pagination.filters({
+            
+            "profile.cnic" : {$regex :event.target.value,}
+
+      });
+     
 
 
   // Template.instance().pagination

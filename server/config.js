@@ -1,9 +1,15 @@
 // run this when the meteor app is started
 Meteor.startup(function() {
 
+
+  //Lock._ensureIndex({user: 1 , section: 1}, {unique: 1});
+
  Meteor.publish("userList", function () {
            return Meteor.users.find({}, {fields: {emails: 1, profile: 1}});
     });
+
+
+
 
 //Results._ensureIndex({userId: 1 ,Question:1}, {unique: 1});
   

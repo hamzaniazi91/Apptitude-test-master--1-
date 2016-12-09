@@ -1,5 +1,6 @@
 Router.configure({
-  layoutTemplate : 'basiclayout'
+  layoutTemplate : 'basiclayout',
+    loadingTemplate: 'loading',
 })
 
 
@@ -106,6 +107,36 @@ Router.route('/questions/:_name',function(){
 })
 
 
+Router.route('/questions_update/:_name',function(){
+name: "a8",
+  this.render('questions_update',{to:'maincontent'})
+}, {
+    //name : 'search',
+
+    onBeforeAction : function () {
+        console.log('onBeforeAction called');
+        this.next();
+    },
+    onAfterAction : function () {
+        console.log('onAFTERAction called');
+    },
+    action: function() 
+            {
+            if (this.ready())
+                this.render();
+            },
+    //            waitOn: function () {
+
+    //     //var id = this.params._id;
+    //     return Meteor.subscribe('allyells');
+    // },
+        
+
+
+
+})
+
+
 // Router.route('/questions/:_name',function(){
 // 	var params = this.params;
 // 	var name = params._name;
@@ -128,6 +159,7 @@ name: "a7",
   this.render('validateDesc',{to:'maincontent'})
 
 })
+
 
 Router.route('/scorecard',function(){
 name: "a0",

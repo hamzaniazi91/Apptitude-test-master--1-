@@ -1,10 +1,18 @@
 
 
 <template name="loading">
+
+ {{>spinner}}
+
+
     Please wait. Loading data...
 </template> 
 
+<template name="foo">
 
+ <big>{{getCountdown}}</big> seconds left!
+
+</template>
 
 <template name="intro">
 
@@ -13,7 +21,7 @@
      {{#if userId}}
       <a  href="{{pathFor route='section'}}" style="display: block;" class="center-align justified  row waves-effect waves-light">
       <div class="col s4 offset-s4 " >
-      <div   class="card-panel teal ">
+      <div   class="card-panel blue-grey darken white-text ">
                             <a style="color: white" id="startquiz"   type="submit" name="action"  action="#quizstart">
       Start Aptitude Test
         
@@ -76,7 +84,9 @@
 
 <template name="questions" id="quizstart">
 
-	{{>score}} <span class=" card-title  badge" data-badge-caption="">{{count1}}  </span>
+
+
+	{{>score}} <span class=" card-title  badge" data-badge-caption="">{{>foo}} {{count1}}  </span>
  
 	<div  class="center-align justified collection row">
    <div class="col s4 offset-s4">
@@ -84,8 +94,10 @@
 
 
 	{{#each display}}
-  <div class="card-panel grey darken-2 orange-text">
+  <div class="card-panel blue-grey darken white-text ">
 		<b>{{question}}</b>
+    <br>
+    <img src="{{imageFile.link}}" alt="{{imageFile.name}}" />
     </div>
 		<br>
 		 <form>
@@ -93,30 +105,30 @@
 
 
     
-    <a class="collection-item card-panel orange lighten-1 ">
+    <a class="collection-item card-panel grey lighten-3">
 
       <input name="choice" type="radio" id="{{_id}}+1"  value="0" />
       <label for="{{_id}}+1" class="black-text">{{options.[0]}}</label>
     </a>
 
       
-    <a class="collection-item card-panel orange lighten-1 ">
+    <a class="collection-item card-panel grey lighten-3">
       <input name="choice" type="radio" id="{{_id}}+2"  value="1" />
       <label for="{{_id}}+2"  class="black-text">{{options.[1]}}</label>
     </a>
     
-    <a class="collection-item card-panel orange lighten-1 ">
+    <a class="collection-item card-panel grey lighten-3 ">
       <input name="choice" type="radio" id="{{_id}}+3"   value="2" />
       <label for="{{_id}}+3" class="black-text">{{options.[2]}}</label>
     </a>
     
-      <a class="collection-item card-panel orange lighten-1 ">
+      <a class="collection-item card-panel grey lighten-3 ">
         <input name="choice" type="radio" id="{{_id}}+4"  value="3" />
         <label for="{{_id}}+4" class="black-text">{{options.[3]}}</label>
     </a>
 
     {{#if isQuestionCountGT1}}
-    <button class="btn " type="submit" id="loadNext"  > Next </button>
+    <button class="btn blue-grey darken white-text" type="submit" id="loadNext"  > Next </button>
    
     {{/if}}
     
@@ -125,9 +137,9 @@
       <br>
 
 	{{/each}}
-    <button class="btn " id="skip" > Skip </button>
+    <button class="btn blue-grey darken white-text " id="skip" > Skip </button>
   <!-- <a id="submit1" class="btn align-center endQuiz">Submit Answers!</a> -->
-    <button id="goback" class="btn align-center endQuiz">Go Back</button>
+    <button id="goback" class="btn blue-grey darken white-text align-center endQuiz">Go Back</button>
 	</div>
 
 	<br>

@@ -17,3 +17,13 @@
     -ms-transition: all .3s ease-out;
     transition: all .3s ease-out;
 }
+
+
+#iron-router-progress.spinner:before {
+    border-color : #546e7a !important;
+}
+
+#iron-router-progress {
+    background-color : #546e7a !important;
+    box-shadow : 0 0 5px #546e7a !important;
+}

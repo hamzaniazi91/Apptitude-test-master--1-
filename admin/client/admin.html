@@ -2,10 +2,27 @@
 
 
 
+<template name="uploadForm">
+  {{#with currentUpload}}
+    Uploading <b>{{file.name}}</b>:
+    <span id="progress">{{progress.get}}%</span>
+  {{else}}
+    <input id="fileInput" type="file" />
+  {{/with}}
+  <br>
+</template>
 
-
-
-
+<template name='file'>
+  <img src="{{imageFile.link}}" alt="{{imageFile.name}}" />
+  <!-- Same as: -->
+  <!-- <img src="{{fileURL imageFile}}" alt="{{imageFile.name}}" /> -->
+<!--   <hr>
+  <video height="auto" controls="controls">
+    <source src="{{videoFile.link}}?play=true" type="{{videoFile.type}}" /> -->
+    <!-- Same as: -->
+    <!-- <source src="{{fileURL videoFile}}?play=true" type="{{videoFile.type}}" /> -->
+<!--   </video> -->
+</template>
 
 <template name='admin'>
 
@@ -40,11 +57,15 @@
   <div class="input-field">
               <input type="text" name="section" id="section"  >
               <label for="section">New Section</label>
-               <button id="addSection" class="btn waves-effect waves-light" >Add</button>
+             
           </div>
 
+            <div class="input-field">
+              <input type="text" name="timer" id="timer"  >
+              <label for="timer">Timer</label>
 
-
+  </div>
+  <button id="addSection" class="btn waves-effect waves-light" >Add</button>
 
 <ul class="collapsible" data-collapsible="accordion">
     {{#each display}}
@@ -97,14 +118,16 @@
        
             <div class="collapsible-body">
 
-  <p>
+  
       <input name="group1" type="radio" id="test1" />
       <label for="test1">MCQ's</label>
-    </p>
-    <p>
+      <br> 
       <input name="group1" type="radio" id="test2" />
       <label for="test2">Descriptive</label>
-    </p>
+    <br>
+      <input name="group1" type="radio" id="test3" />
+      <label for="test3">Pictorial</label>
+    <br>
 
 
             <a class='dropdown-button btn' href='#' data-activates='dropdown1'>Select Section</a>
@@ -132,6 +155,10 @@
               <label for="question">New Question</label>
           </div>
           </div>
+
+          {{>uploadForm}}
+          <br>
+          {{>file}}
 
         <div class="c">
           <div class="input-field">

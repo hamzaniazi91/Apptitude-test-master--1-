@@ -67,12 +67,13 @@
 {{/each}}
  -->
 
-  <input placeholder="Placeholder" id="first_name" type="text" class="validate">
+  <input placeholder="Email" id="first_name" type="text" class="validate">
+  <input placeholder="Cnic" id="cnic" type="text" class="validate">
 
   <ul class="collapsible" data-collapsible="accordion">
      {{#each documents}}
     <li>
-      <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{userEmail}}</div>
+      <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{userEmail}} - {{userCnic}}</div>
       <div class="collapsible-body">
       <!-- <p>{{correctScore}} /  {{userScore}}</p> -->
           <table class="striped">

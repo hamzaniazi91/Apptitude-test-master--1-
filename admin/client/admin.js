@@ -2,9 +2,21 @@
 Meteor.subscribe('userStatus')
 
 
+this.Videos = new FilesCollection({collectionName: 'Videos'});
+
 function sectionCursor(){
   return Sections.find();
 }
+
+
+function questionCursor2(){
+  console.log(Questions.find({}));
+
+  return Questions.find({});
+
+
+}
+
 
 
 function questionCursor(section1){
@@ -15,11 +27,78 @@ function questionCursor(section1){
 
 }
 
+Template.uploadForm.onCreated(function () {
+  this.currentUpload = new ReactiveVar(false);
+});
+
+Template.uploadForm.helpers({
+  currentUpload: function () {
+    return Template.instance().currentUpload.get();
+  }
+});
+
+Template.uploadForm.events({
+  'change #fileInput': function (e, template) {
+    if (e.currentTarget.files && e.currentTarget.files[0]) {
+      // We upload only one file, in case
+      // multiple files were selected
+      var upload = Images.insert({
+        file: e.currentTarget.files[0],
+        streams: 'dynamic',
+        chunkSize: 'dynamic'
+      }, false);
+
+      upload.on('start', function () {
+        template.currentUpload.set(this);
+      });
+
+      upload.on('end', function (error, fileObj) {
+        if (error) {
+          alert('Error during upload: ' + error);
+        } else {
+          alert('File "' + fileObj.name + '" successfully uploaded');
+          console.log(fileObj);
+          Session.set("id" , fileObj._id)
+        }
+        template.currentUpload.set(false);
+      });
+
+      upload.start();
+    }
+  }
+});
+
+
+Template.file.helpers({
+  imageFile: function () {
+
+    console.log(Images.findOne({_id : Session.get("id")}));
+    console.log(Images.findOne());
+    return Images.findOne({_id : Session.get("id") });
+  }
+  ,
+  videoFile: function () {
+    return Videos.findOne();
+  }
+});
+
+
+
 Template.questions.onRendered(function(){
   this.subscribe('allyells');
   Session.set('skip',0);
   Session.set('limit',1);
   Session.set('score', 0);
+
+  // $(document).ready(function() {
+  // $('.modal-trigger').leanModal();
+
+
+
+
+  //   $('.collapsible').collapsible();
+  // });
+
 
 
 
@@ -30,10 +109,24 @@ Template.questions.onRendered(function(){
 
 
 Template.admin.rendered = function(){
-       $(document).ready(function(){
-    // $('.collapsible').collapsible();
-    //   $('.dropdown-button').dropdown('open');
-  });
+  //      $(document).ready(function(){
+  //   $('.collapsible').collapsible();
+  //     $('.dropdown-button').dropdown('open');
+  // });
+
+ // this.autorun(function() 
+ //  {
+ //   var optionsCursor = Questions.find().count(); 
+ //   console.log(optionsCursor)
+ //   if(optionsCursor > 0)
+ //    { 
+ //            $('.dropdown-button').dropdown('open');
+ //      $(".collapsible").collapsible({
+ //        accordion: false
+ //      });
+ //       }
+
+ //        }); 
 
 
  }
@@ -51,27 +144,31 @@ console.log(document.getElementById('h1').value());
 Template.admin.onCreated(function(){
 
 
- setTimeout(function() {console.log(Meteor.userId() + Meteor.users.findOne());
-console.log(Roles.userIsInRole(Meteor.user(), 'admin' ));
-console.log( Roles.userIsInRole(Meteor.user(), ['admin'] , 'default-group') )
-///Roles.addUsersToRoles(joesUserId, ['manage-team'], 'manchester-united.com')
-//Roles.addUsersToRoles('oWSLeP7y4EgkrJ7ii', ['manage-team'], 'manchester-united.com')
+//  setTimeout(function() {console.log(Meteor.userId() + Meteor.users.findOne());
+// console.log(Roles.userIsInRole(Meteor.user(), 'admin' ));
+// console.log( Roles.userIsInRole(Meteor.user(), ['admin'] , 'default-group') )
+// ///Roles.addUsersToRoles(joesUserId, ['manage-team'], 'manchester-united.com')
+// //Roles.addUsersToRoles('oWSLeP7y4EgkrJ7ii', ['manage-team'], 'manchester-united.com')
 
 
-  }, 1000);
+//   }, 1000);
 
 
-  console.log(Meteor.userId() + Meteor.users.findOne())
-console.log(Roles.userIsInRole(Meteor.userId(), 'admin' ));
+//   console.log(Meteor.userId() + Meteor.users.findOne())
+// console.log(Roles.userIsInRole(Meteor.userId(), 'admin' ));
 
 	 this.autorun(function(){
     // registers a dependency on the number of documents returned by the cursor
     var sectionCursorCount = sectionCursor().count();
+    var questionCursorCount = questionCursor2().count()
     // this will log 0 at first, then after the jobs publication is ready
     // it will log the total number of documents published
     console.log(sectionCursorCount);
+     console.log(questionCursorCount);
     // initialize the plugin only when Blaze is done with DOM manipulation
     Tracker.afterFlush(function(){
+
+      console.log("flush Ready")
         $('.dropdown-button').dropdown('open');
       $(".collapsible").collapsible({
         accordion: false
@@ -82,7 +179,7 @@ console.log(Roles.userIsInRole(Meteor.userId(), 'admin' ));
 
   
 
-  setTimeout(function() {console.log(Questions.find().count());}, 1000);
+ // setTimeout(function() {console.log(Questions.find().count());}, 1000);
 
 // var country = document.getElementById("country");
 // country.options[country.options.selectedIndex].selected = true;
@@ -179,18 +276,32 @@ console.log (event.currentTarget.innerText)
 	'click #addSection': function(event){
 
 		var sec = document.getElementById('section').value;
+    var timer = document.getElementById('timer').value;
 
 		console.log(sec);
-if(!sec){
+if(!sec || !timer){
 
-Materialize.toast('Enter Section name', 2000);
+Materialize.toast('Enter Section name and timer', 2000);
 }
 else{
-    Sections.insert({section : sec , createdAt : new Date()});
+    Sections.insert({section : sec , timer : timer , createdAt : new Date()});
 }
 	
 
 	},
+
+  'mouseenter  .collapsible' : function(event){
+
+console.log("collapsible");
+
+      $('.dropdown-button').dropdown('open');
+      $(".collapsible").collapsible({
+        accordion: false
+      });
+
+
+
+  },
 	
 
 
@@ -237,7 +348,7 @@ if( DuplicateQues >=  1)
 
 else
 {
-Questions.insert({section : sec ,no: Qnumber ,question:que,options:[option1,option2,option3,option4],answer:correctans , createdAt : new Date()});
+Questions.insert({imgId : Session.get("id") ,section : sec ,no: Qnumber ,question:que,options:[option1,option2,option3,option4],answer:correctans , createdAt : new Date()});
 return true;
 }
 }
