@@ -104,7 +104,7 @@ console.log("go ")
 
 console.log(this);
 		
-		return Questions.find({ section:_sec} ,{sort: {no: 1}}).fetch();
+		return Questions.find({ section:_sec} ,{sort: {_random_sample: 1}}).fetch();
  
 
 }

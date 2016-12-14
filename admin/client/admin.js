@@ -196,6 +196,17 @@ Template.admin.onCreated(function(){
 
 Template.admin.helpers({
 
+
+   imageFile: function () {
+
+    // console.log(Images.findOne({_id : Session.get("id")}));
+     console.log(this);
+
+
+    return Images.findOne({_id : this.imgId });
+  },
+  
+
   usersOnline:function(){
 
     console.log(Meteor.users.find({ "status.online": true }));
@@ -284,7 +295,7 @@ if(!sec || !timer){
 Materialize.toast('Enter Section name and timer', 2000);
 }
 else{
-    Sections.insert({section : sec , timer : timer , createdAt : new Date()});
+    Sections.insert({section : sec , time : timer , createdAt : new Date()});
 }
 	
 
@@ -348,7 +359,7 @@ if( DuplicateQues >=  1)
 
 else
 {
-Questions.insert({imgId : Session.get("id") ,section : sec ,no: Qnumber ,question:que,options:[option1,option2,option3,option4],answer:correctans , createdAt : new Date()});
+Questions.insert({_random_sample : Math.random() ,imgId : Session.get("id") ,section : sec ,no: Qnumber ,question:que,options:[option1,option2,option3,option4],answer:correctans , createdAt : new Date()});
 return true;
 }
 }

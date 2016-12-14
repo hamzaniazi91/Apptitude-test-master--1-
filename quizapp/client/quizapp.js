@@ -1,6 +1,19 @@
 
 
 
+   if (Meteor.isClient) {
+  console.log("adssad")
+
+var qs = Questions.find().fetch();
+ console.log( qs)
+  _.each(qs, function(question) {
+    console.log( question._id)
+    console.log(question._id)
+      Questions.update({ _id : question._id } , {$set: { _random_sample : Math.random() }});
+    });
+};
+
+
 Template.questions.onRendered(function(){
   this.subscribe('allyells');
   
@@ -22,34 +35,70 @@ Session.set("session" , Router.current().params._name)
 
 
 
-
-
-
-var countdown ;
-
-
-Template.foo.onCreated(function(){
-
+function createTimer(section,time){
 
 Session.get("session");
-//var _sec = Router.current().params._name
+
 // dict = new ReactiveDict('myDict2');
 // dict.set("sec", _sec);
 
 
+console.log(window['countdown'+ section]);
 
-countdown = new ReactiveCountdown(50);
-countdown.start(function() {
+
+
+window['countdown'+ section]= new ReactiveCountdown(time);
+window['countdown'+ section]._id= section;
+window['countdown'+ section].start(function() {
 
 
     // do something when this is completed
 
+    //console.log(countdown.id)
+
+    console.log(window['countdown'+ section])
+
 console.log(Session.get("session"));
 
-Lock.insert({ section: Session.get("session") , user : Meteor.userId() , lock : true ,createdAt : new Date()} );
-alert("Time Is up")
+Lock.insert({ section: section , user : Meteor.userId() , lock : true ,createdAt : new Date()} );
+alert("Time Is up for section " + section)
 Router.go("/section")
 })
+
+}
+
+
+
+Template.questions.onCreated(function(){
+
+
+
+
+var _sec = Router.current().params._name
+
+ var Section = Sections.findOne({section : _sec });
+
+console.log(window['countdown'+ _sec]);
+
+console.log(Section.time);
+
+var _time  =  Section.time;
+
+
+if(window['countdown'+ _sec] === undefined)
+createTimer(_sec , _time)
+});
+
+
+
+Template.foo.onCreated(function(){
+
+	//var countdown ;
+
+
+
+
+
 });
 
 
@@ -59,7 +108,7 @@ Template.foo.helpers({
 
     getCountdown: function() {
     	console.log("started")
-        return countdown.get();
+        return window['countdown'+ Session.get("session")].get();
     }
 
 })
@@ -142,6 +191,7 @@ var count = Session.get('skip') + 1;
 
 
 
+
 		console.log(Router.current().params);
 
 		var _sec=Router.current().params._name
@@ -150,18 +200,38 @@ var count = Session.get('skip') + 1;
 var counthamza = Questions.find({ section:_sec}).count();
 console.log(counthamza);
 
+
+//shuffle all objects
+
+// var allQuestions = Questions.find({ section:_sec}).fetch();
+// 	for (var i = allQuestions.length -1; i > 1; i--) {
+// 		var r = Math.floor(Math.random() * i);
+// 		var t = allQuestions[i];
+// 		allQuestions[i] = allQuestions[r];
+// 		allQuestions[r] = t;
+// 	}
+
+
+
+		// var array = Questions.find().fetch();
+		// var randomIndex = Math.floor( Math.random() * array.length );
+		// var element = array[randomIndex];
+		// console.log(element)
+
 		var arr = []
-		while(arr.length < counthamza){
-  		var randomnumber=Math.floor((Math.random() * counthamza) + 1)
+	while(arr.length < Questions.find().count()){
+  		var randomnumber=Math.ceil(Math.random()*Questions.find().count())
   		var found=false;
  		for(var i=0;i<arr.length;i++){
-			if(arr[i]==randomnumber){found=true;console.log()
+			if(arr[i]==randomnumber){found=true
 				break}
  		 }
+
+
  		 if(!found)arr[arr.length]=randomnumber;
 		}
 
-		console.log(Math.floor((Math.random() * 15) + 1));
+
 
 		console.log(arr);
 
@@ -175,8 +245,11 @@ console.log(counthamza);
 		//console.log(Sections.find());
 
 		//console.log(Questions.find({ section:_sec,no: {$in:arr}} ,{limit:Session.get('limit'),skip:Session.get('skip')}).count())
-		var count =  Questions.find({ section:_sec,no: {$in:arr}} ,{limit:Session.get('limit'),skip:Session.get('skip')}).count()
+		//var count =  Questions.find({ section:_sec,no: {$in:arr}} ,{limit:Session.get('limit'),skip:Session.get('skip')}).count()
 
+		var count =  Questions.find({ section:_sec,no: {$in:arr}} ,{sort: {_random_sample: 1},limit:Session.get('limit'),skip:Session.get('skip')}).count();
+
+console.log(count)
 		if(count === 0 )
 		{
 			Router.go('/section');
@@ -187,9 +260,14 @@ else{
 console.log("go ")
 
 // sort: {no: 1},
-		return Questions.find({ section:_sec,no: {$in:arr}} ,{limit:Session.get('limit'),skip:Session.get('skip')}).fetch();
- 
+		// return Questions.find({ section:_sec,no: {$in:arr}} ,{limit:Session.get('limit'),skip:Session.get('skip')});
 
+
+// var skip = Math.floor((Math.random() * counthamza) + 1)
+console.log(Questions.find({ section:_sec,no: {$in:arr}} ,{limit:Session.get('limit'),skip:Session.get('skip')}).fetch())
+ return Questions.find({ section:_sec,no: {$in:arr}} ,{sort: {_random_sample: 1},limit:Session.get('limit'),skip:Session.get('skip')});
+
+ 
 }
 		
 		//return Questions.find({limit:Session.get('limit'),skip:Session.get('skip')});

@@ -61,7 +61,7 @@ console.log(element)
 element.style.background = "grey";
 console.log(count);
 if(count >0 ){
-	alert("Section Locked Time Up")
+	alert("Section Locked , Time Up")
 	//return true;
 }
 	else 
@@ -84,11 +84,27 @@ console.log(this.section);
 
 var name = event.currentTarget.innerText;
 
+console.log(this.section);
+//console.log(Lock.find({section : this.section , user : Meteor.userId()}).fetch());
 
+var count = Lock.find({section : this.section , user : Meteor.userId()}).count()
+
+
+var element = document.getElementById(this._id);
+console.log(element)
+element.style.background = "grey";
+console.log(count);
+if(count >0 ){
+	alert("Section Locked , Time Up")
+	//return true;
+}
+	else 
+{
 
 console.log(this.section);
-
- Router.go('/questions_update/' + this.section);
+	 Router.go('/questions_update/' + this.section);
+		//return false;
+	}
 
 }
 
@@ -146,6 +162,12 @@ var count = Lock.find({section : this.section , user : Meteor.userId()}).count()
 console.log(count);
 if(count >0 ){
 var element = document.getElementById(this.section + "+1");
+console.log(element)
+//element.setAttribute('style', 'display:inline !important');
+element.setAttribute('style', "background:grey !important ;margin-bottom:0");
+
+
+var element = document.getElementById(this.section + "+2");
 console.log(element)
 //element.setAttribute('style', 'display:inline !important');
 element.setAttribute('style', "background:grey !important ;margin-bottom:0");

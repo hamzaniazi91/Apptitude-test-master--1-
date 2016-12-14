@@ -7,13 +7,14 @@
     Uploading <b>{{file.name}}</b>:
     <span id="progress">{{progress.get}}%</span>
   {{else}}
+  Select Image<br>
     <input id="fileInput" type="file" />
   {{/with}}
   <br>
 </template>
 
 <template name='file'>
-  <img src="{{imageFile.link}}" alt="{{imageFile.name}}" />
+  <img class="responsive-img" src="{{imageFile.link}}" alt="{{imageFile.name}}" />
   <!-- Same as: -->
   <!-- <img src="{{fileURL imageFile}}" alt="{{imageFile.name}}" /> -->
 <!--   <hr>
@@ -61,8 +62,8 @@
           </div>
 
             <div class="input-field">
-              <input type="text" name="timer" id="timer"  >
-              <label for="timer">Timer</label>
+              <input type="number" name="timer" id="timer"  >
+              <label for="timer">Timer (in Seconds)</label>
 
   </div>
   <button id="addSection" class="btn waves-effect waves-light" >Add</button>
@@ -70,9 +71,9 @@
 <ul class="collapsible" data-collapsible="accordion">
     {{#each display}}
         <li>
-            <div class="collapsible-header">{{section}}<button id="delete0" class="btn waves-effect waves-light" style=" padding: 0px 1rem;font-size: smaller;   float: right;">Delete</button></div>
+            <div class="collapsible-header"><b>{{section}}</b> Timer : {{time}}<button id="delete0" class="btn waves-effect waves-light" style=" padding: 0px 1rem;font-size: smaller;   float: right;">Delete</button></div>
             {{#each questions}}
-            <div class="collapsible-body"><p> {{question}}</p><button id="delete" class="btn waves-effect waves-light" >Delete</button></div>
+            <div class="collapsible-body"><p> {{question}}</p><img class="responsive-img" src="{{imageFile.link}}" alt="{{imageFile.name}}" /><br><button id="delete" class="btn waves-effect waves-light" >Delete</button></div>
             {{/each}}
         </li>
     {{/each}}
@@ -118,7 +119,7 @@
        
             <div class="collapsible-body">
 
-  
+  <!-- 
       <input name="group1" type="radio" id="test1" />
       <label for="test1">MCQ's</label>
       <br> 
@@ -126,7 +127,7 @@
       <label for="test2">Descriptive</label>
     <br>
       <input name="group1" type="radio" id="test3" />
-      <label for="test3">Pictorial</label>
+      <label for="test3">Pictorial</label> -->
     <br>
 
 
@@ -143,7 +144,7 @@
 
         <div class="">
            <div class="input-field">
-              <input  type="text" name="sc" id="sc" required>
+              <input  type="text" name="sc" id="sc" required disabled>
               <label for="sc">Section</label>
           </div>
           </div>

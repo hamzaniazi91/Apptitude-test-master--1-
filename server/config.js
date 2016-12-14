@@ -1,6 +1,19 @@
 // run this when the meteor app is started
 Meteor.startup(function() {
 
+console.log("HKN")
+
+//    if (Meteor.isClient) {
+//   console.log("adssad")
+
+// var qs = Questions.find().fetch();
+
+//   _.each(qs, function(question) {
+//     console.log( question._id)
+//       Questions.update({ _id : question._id } , {$set: { _random_sample : Math.random() }});
+//     });
+// };
+
 
   //Lock._ensureIndex({user: 1 , section: 1}, {unique: 1});
 
@@ -15,7 +28,7 @@ Meteor.startup(function() {
   
 
   // if there are no questions available create sample data
-  if (Questions.find().count()===0) {
+  // if (Questions.find().count()===0) {
 
     // create sample questions
 //     var samplequestions = [
@@ -333,10 +346,11 @@ Meteor.startup(function() {
     //];
 
     // loop over each sample question and insert into database
-    _.each(samplequestions, function(question) {
-      Questions.insert(question);
-    });
+    // _.each(samplequestions, function(question) {
+    //   Questions.insert(question);
+    // });
 
-  }
+
+  
 
 });
