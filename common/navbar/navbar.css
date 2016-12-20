@@ -30,3 +30,10 @@
     cursor: pointer;
     text-decoration: underline;
 }
+
+
+#signup-link{
+
+visibility: hidden
+
+}

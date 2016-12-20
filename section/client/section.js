@@ -125,6 +125,11 @@ Template.section.helpers({
 		var score=Session.get('score');
 		return score;
 	},
+
+		user: function(){
+		console.log(Meteor.user())
+		return Meteor.user();
+	},
 	'displaySections' : function(){
 
 

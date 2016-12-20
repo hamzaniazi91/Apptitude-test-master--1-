@@ -73,7 +73,10 @@
   <ul class="collapsible" data-collapsible="accordion">
      {{#each documents}}
     <li>
-      <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{userEmail}} - {{userCnic}}</div>
+      <div class="collapsible-header"><i class="material-icons">filter_drama</i>{{userEmail}} - {{userCnic}}
+
+      <button id="export" class="btn waves-effect waves-light" style=" padding: 0px 1rem;font-size: smaller;   float: right;">export</button>
+      </div>
       <div class="collapsible-body">
       <!-- <p>{{correctScore}} /  {{userScore}}</p> -->
           <table class="striped">

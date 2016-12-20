@@ -4,6 +4,9 @@
 <template name="section">
 
   {{#if userId}}
+
+
+
 	<!-- <h1>Your score is {{displayScore}}</h1> -->
 
 <!--   <h1 style="text-align:center">Sections</h1> -->
@@ -19,29 +22,61 @@
 
       </div>
 
+      <ul id="profile-page-about-details" class="collection z-depth-1">
+                  <li class="collection-item">
+                    <div class="row" style=" margin-bottom: 0px; ">
+                      <div class="col s5 grey-text darken-1"><i class="mdi-action-wallet-travel"></i> Name</div>
+                      <div class="col s7 grey-text text-darken-4 right-align">{{user.username}}</div>
+                    </div>
+                  </li>
+                  <li class="collection-item">
+                    <div class="row" style=" margin-bottom: 0px; ">
+                      <div class="col s5 grey-text darken-1"><i class="mdi-social-poll"></i> CNIC</div>
+                      <div class="col s7 grey-text text-darken-4 right-align">{{user.profile.cnic}}</div>
+                    </div>
+                  </li>
+                  <li class="collection-item">
+                    <div class="row" style=" margin-bottom: 0px; ">
+                      <div class="col s5 grey-text darken-1"><i class="mdi-social-domain"></i> Position Applied For</div>
+                      <div class="col s7 grey-text text-darken-4 right-align">{{user.profile.position}}</div>
+                    </div>
+                  </li>
+                  <li class="collection-item">
+                    <div class="row" style=" margin-bottom: 0px; ">
+                      <div class="col s5 grey-text darken-1"><i class="mdi-social-cake"></i> Contact Number</div>
+                      <div class="col s7 grey-text text-darken-4 right-align">{{user.profile.number}}</div>
+                    </div>
+                  </li>
+                </ul>
 
 
+<div  style="" class="center-align justified  row waves-effect2 waves-light"  >
  {{#each displaySections}}
-  <div  style="display: block;margin-bottom: 0" class="center-align justified  row waves-effect2 waves-light"  id="gotoQuestions" >
-      <div class="col s4 offset-s4">
+   
+      <div class="col s6 "  >
+      <div id="gotoQuestions">
       <div class="card-panel2 hoverable blue-grey darken white-text " id="{{section}}+1" style="margin-bottom: 0">
         <div     >
           <a id="{{_id}}" class="white-text">{{section}} {{LockSection}}</a><br><span>{{time}} Seconds</span>
         </div>
         </div>
+        </div>
      
-    </div>
-    </div>
-    <div  style="display: block;" class="center-align justified  row waves-effect2 waves-light" id="gotoQuestionsUpdate">
-      <div class="col s4 offset-s4">
+  
+  
+<!--     <div  style="display: block;" class="center-align justified  row waves-effect2 waves-light" id="gotoQuestionsUpdate"> -->
+  
+  <div class="center-align justified  row waves-effect2 waves-light" id="gotoQuestionsUpdate">
 <div   class="card-panel2 hoverable blue-grey darken white-text  "  id="{{section}}+2">
         <a id="{{_id}}" class="white-text">Edit Answers {{data}}</a>
         </div>
+        </div>
    </div>
-    </div>
+
+   
 
 {{/each}}
-
+     </div>
 
 {{/if}}
 </template>

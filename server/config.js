@@ -1,6 +1,8 @@
 // run this when the meteor app is started
 Meteor.startup(function() {
 
+  
+
 console.log("HKN")
 
 //    if (Meteor.isClient) {

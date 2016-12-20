@@ -355,6 +355,16 @@ Template.scorecard.events({
 'click #click1':function(event)
 {
 console.log(Results.find().count());
+},
+
+
+'click #export':function(event)
+{
+  event.preventDefault();
+
+  var docDefinition = { content: 'My Text' };
+  pdfMake.createPdf(docDefinition).open();
+console.log(event);
 }
 
 });
