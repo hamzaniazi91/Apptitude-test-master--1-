@@ -37,6 +37,7 @@ email@1.1.18
 fastclick@1.0.11
 flyandi:reactive-countdown@0.0.3
 geojson-utils@1.0.10
+harrison:papa-parse@1.1.1
 hot-code-push@1.0.4
 html-tools@1.0.10
 htmljs@1.0.10
@@ -51,6 +52,8 @@ iron:location@1.0.9
 iron:middleware-stack@1.1.0
 iron:router@1.0.9
 iron:url@1.0.11
+jparker:crypto-core@0.1.0
+jparker:crypto-md5@0.1.1
 jquery@1.11.9
 kurounin:pagination@1.0.13
 kurounin:pagination-blaze@1.0.2
@@ -82,6 +85,7 @@ observe-sequence@1.0.12
 ordered-dict@1.0.9
 ostrio:cookies@2.0.4
 ostrio:files@1.5.6
+pcel:serialize@1.0.1
 promise@0.8.8
 random@1.0.10
 rate-limit@1.0.6
@@ -101,6 +105,7 @@ standard-minifier-css@1.3.2
 standard-minifier-js@1.0.8
 templating@1.2.13
 templating-tools@1.0.4
+themeteorchef:jquery-validation@1.14.0
 tmeasday:publish-counts@0.7.3
 tracker@1.1.1
 ui@1.0.11

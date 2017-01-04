@@ -3,6 +3,7 @@
 
 <template name="section">
 
+{{#if Template.subscriptionsReady}}
   {{#if userId}}
 
 
@@ -21,6 +22,51 @@
           </div>
 
       </div>
+
+
+          <div class="row">
+        <div class="col">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <span class="card-title">Instructions</span>
+              <p>
+1.  The total duration of the test is {{Minutes}} HH:MM:SS.<br>
+
+2.  There are four sections in this test<br>
+ {{#each displaySections}}
+  &nbsp; &nbsp; &nbsp;  • {{section}}<br>
+{{/each}}
+<!-- 
+  &nbsp; &nbsp; &nbsp;  • Mathematical Section<br>
+
+ &nbsp; &nbsp;  • Logical Reasoning<br>
+
+  • General Knowledge<br> -->
+
+3.  Time allocated for each section will be mentioned on the right top corner in seconds. Once time is over in a particular section then you cannot go back and attempt the remaining questions.<br>
+
+4.  Please attempt all the questions because there is no negative marking.<br>
+
+5.  Make sure to save answers of each section before attempting questions of other section.<br>
+
+6.  In order to select your appropriate choice, please click on the appropriate answer according to your selection.<br>
+
+7.  Any evidence of cheating or non-compliance with instructions will disqualify the candidate for recruitment with MBL.<br>
+
+8.  Please Switch-Off your Mobile Phone Sets.<br>
+
+9.  Calculators are NOT allowed.<br>
+</p>
+            </div>
+      <!--       <div class="card-action">
+              <a href="#">This is a link</a>
+              <a href="#">This is a link</a>
+            </div> -->
+          </div>
+        </div>
+      </div>
+
+
 
       <ul id="profile-page-about-details" class="collection z-depth-1">
                   <li class="collection-item">
@@ -57,7 +103,8 @@
       <div id="gotoQuestions">
       <div class="card-panel2 hoverable blue-grey darken white-text " id="{{section}}+1" style="margin-bottom: 0">
         <div     >
-          <a id="{{_id}}" class="white-text">{{section}} {{LockSection}}</a><br><span>{{time}} Seconds</span>
+          <a id="{{_id}}" class="white-text"><b>{{section}}</b> {{LockSection}}</a><br><span>{{timeInMinutes}} Minutes</span><br><span>{{limit}} Questions</span>
+          {{data}}
         </div>
         </div>
         </div>
@@ -66,11 +113,11 @@
   
 <!--     <div  style="display: block;" class="center-align justified  row waves-effect2 waves-light" id="gotoQuestionsUpdate"> -->
   
-  <div class="center-align justified  row waves-effect2 waves-light" id="gotoQuestionsUpdate">
+<!--   <div class="center-align justified  row waves-effect2 waves-light" id="gotoQuestionsUpdate">
 <div   class="card-panel2 hoverable blue-grey darken white-text  "  id="{{section}}+2">
         <a id="{{_id}}" class="white-text">Edit Answers {{data}}</a>
         </div>
-        </div>
+        </div> -->
    </div>
 
    
@@ -79,4 +126,28 @@
      </div>
 
 {{/if}}
+  {{else}}
+  <div>
+    {{> loader}}
+    </div>
+  {{/if}}
+
+</template>
+
+
+<template name="loader">
+
+    <div class="preloader-wrapper big active"  style=" display: block;
+    margin-left: auto;
+    margin-right: auto ">
+    <div class="spinner-layer spinner-blue-only">
+      <div class="circle-clipper left">
+        <div class="circle"></div>
+      </div><div class="gap-patch">
+        <div class="circle"></div>
+      </div><div class="circle-clipper right">
+        <div class="circle"></div>
+      </div>
+    </div>
+  </div>
 </template>

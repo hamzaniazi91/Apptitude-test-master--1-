@@ -45,7 +45,7 @@
   </div>
 
   <a  href="{{pathFor route='scorecard'}}" class="btn waves-effect waves-light" >Score Card</a><br>
-  <a  href="{{pathFor route='validateDesc'}}" class="btn waves-effect waves-light" >Validate Descriptive Answers</a><br>
+ <!--  <a  href="{{pathFor route='validateDesc'}}" class="btn waves-effect waves-light" >Validate Descriptive Answers</a><br> -->
 
 
 
@@ -53,6 +53,10 @@
 
  <span class="label {{labelClass}}">{{username}}</span>
 <div class="row">
+
+
+
+
 
 <div class="col s6 offset-s3">
   <div class="input-field">
@@ -66,6 +70,28 @@
               <label for="timer">Timer (in Seconds)</label>
 
   </div>
+
+   <div class="input-field">
+              <input type="number" name="limit" id="limit"  >
+              <label for="limit">Question limit per section</label>
+
+  </div>
+
+
+  <label>Role Specific Section</label>
+  <select class="browser-default" id="position2">
+    <option value="" disabled selected>Choose your option</option>
+    <option value="BM">Branch Manager</option>
+    <option value="OM">Operations Manager</option>
+    <option value="BO">Branch Officer</option>
+   <option value="IT">Information Technology</option>
+   <option value="All">Other</option>
+
+  </select>
+            
+
+
+  <br>
   <button id="addSection" class="btn waves-effect waves-light" >Add</button>
 
 <ul class="collapsible" data-collapsible="accordion">
@@ -109,10 +135,17 @@
     <li><a href="#!">three</a></li>
   </ul> -->
 
+<div>
 
+<input type="file" id="csv-file" name="files"/>
+    <button type="submit" class="btn btn-primary btnReadCsv">Add Csv</button>  
+</div>
   <ul class="collapsible" data-collapsible="accordion">
  
         <li>
+
+
+
 
 
             <div class="collapsible-header">Add Questions</div>

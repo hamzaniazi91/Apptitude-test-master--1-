@@ -95,6 +95,9 @@ Router.route('/questions/:_name',function(){
             if (this.ready())
                 this.render();
             },
+
+          
+  
     //            waitOn: function () {
 
     //     //var id = this.params._id;

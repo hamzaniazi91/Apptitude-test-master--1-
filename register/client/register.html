@@ -1,55 +1,90 @@
 <template name="register">
-  <h2 >Register</h2>
-  <div class="row center-align">
-    <form id="registerForm" method="post" autocomplete="off">
+  <h4 >Register</h4>
+  <div class="row center-align right-alert">
+    <form id="registerForm" method="post" autocomplete="off" class="">
       <div class="input-field">
         <input type="text" name="name" id="name" autocomplete="false" required>
-        <label for="name">Name</label>
+        <label for="name">Name*</label>
       </div>
-      <div class="input-field">
-        <input type="email" name="email" id="email" autocomplete="false" required>
-        <label for="email">Email</label>
+      <div class="input-field ">
+        <input type="email" name="email" id="email" autocomplete="false" required class="validate">
+        <label for="email" data-error="InValid" data-success="Valid">Email*</label>
       </div>
 
+
+
         <div class="input-field">
-        <input type="password" name="pass" id="pass" autocomplete="false" required>
-        <label for="pass">Password</label>
+        <input type="password" name="pass" id="pass" autocomplete="false" required  class="validate">
+        <label for="pass">Password*</label>
       </div>
 
 
        <div class="input-field">
         <input type="text" name="father" id="father" required>
-        <label for="father">Father’s Name</label>
+        <label for="father">Father’s Name*</label>
       </div>
 
        <div class="input-field">
-        <input type="text" name="cnic" id="cnic" required>
-        <label for="cnic">CNIC</label>
+        <input type="text" name="cnic" id="cnic" required  class="validate">
+        <label for="cnic">CNIC*</label>
       </div>
 
        <div class="input-field">
         <input type="text" name="number" id="number" required>
-        <label for="number">Contact Number</label>
+        <label for="number">Contact Number*</label>
       </div>
+
+
+      <div class="input-field">
+        <input type="text" name="Address" id="Address" required>
+        <label for="Address">Present Address*</label>
+      </div>
+
 
        <div class="input-field">
+         <select class="browser-default" id="position2">
+    <option value="" disabled selected>Position Applied for*</option>
+    <option value="BM">Branch Manager</option>
+    <option value="OM">Operations Manager</option>
+    <option value="BO">Branch Officer</option>
+   <option value="IT">Information Technology</option>
+   <option value="All">Other</option>
+
+  </select>
+  </div>
+       <!-- <div class="input-field">
+
         <input type="text" name="position" id="position" required>
-        <label for="position">Position Applied for</label>
+        <label for="position">Position Applied for*</label>
+      </div> -->
+
+            <div class="input-field">
+        <input type="text" name="City" id="City" required>
+        <label for="City">City*</label>
       </div>
 
+            <div class="input-field">
+        <input type="text" name="Date" id="Date" required disabled="true">
+        <label for="Date">Date*</label>
+      </div>
+
+            <div class="input-field">
+        <input type="text" name="Venue" id="Venue" required>
+        <label for="Venue">Venue of Test*</label>
+      </div>
       
 
 <div class="input-field">
         <input type="text" name="Regional" id="Regional" >
-        <label for="Regional">Regional office</label>
+        <label for="Regional">Region (Optional)</label>
       </div>
       <div class="input-field">
         <input type="text" name="Area" id="Area" >
-        <label for="Area">Area office</label>
+        <label for="Area">Area (Optional)</label>
       </div>
       <div class="input-field">
         <input type="text" name="Department" id="Department" >
-        <label for="Department">Department</label>
+        <label for="Department">Department (Optional)</label>
       </div>
 
 

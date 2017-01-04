@@ -10,7 +10,7 @@
 
 <template name="foo">
 
- <big>{{getCountdown}}</big> seconds left!
+ <big style="color: #e91a0b;font-weight: bold;">{{getCountdown}}</big> seconds left!
 
 </template>
 
@@ -21,7 +21,7 @@
      {{#if userId}}
 
       <a  href="{{pathFor route='section'}}" style="display: block;" class="center-align justified  row waves-effect waves-light">
-      <div class="col s4 offset-s4 " >
+      <div class=" col s4 offset-s4 " >
       <div   class="card-panel hoverable blue-grey  darken white-text ">
                             <a style="color: white" id="startquiz"   type="submit" name="action"  action="#quizstart">
       Start Aptitude Test
@@ -84,60 +84,70 @@
 
 
 <template name="questions" id="quizstart">
+{{#if Template.subscriptionsReady}}
+     {{#if userId}}
 
-
-
-	{{>score}} <span class=" card-title  badge" data-badge-caption="">{{>foo}} {{count1}}  </span>
+	{{>score}} <span class=" card-title  badge" data-badge-caption="">{{>foo}}   </span>
  
-	<div  class="center-align justified collection row">
-   <div class="col s4 offset-s4">
+ <br>
+	<div  class="justified collection row">
+   <div class=" offset-s4">
 <!-- 	<li>Questions</li> -->
 
-
+   <form id="form" style="padding: 3%">
 	{{#each display}}
-  <div class="card-panel blue-grey darken white-text ">
-		<b>{{question}}</b>
+
+
+  <div class="card-panel blue-grey darken white-text " style="font-size: small;padding: 10px;">
+    <b>{{question}}</b>
     <br>
+
     <img class="responsive-img" src="{{imageFile.link}}" alt="{{imageFile.name}}" />
     </div>
-		<br>
-		 <form>
+    <br>
 
 
-
+        <div class="radio-group">  
     
-    <a class="collection-item card-panel grey lighten-3">
+    <a class="collection-item card-panel grey lighten-3" style="padding: 5px;" >
 
-      <input name="choice" type="radio" id="{{_id}}+1"  value="0" />
-      <label for="{{_id}}+1" class="black-text">{{options.[0]}}</label>
+      <input name="{{_id}}" type="radio" id="{{_id}}+1"  value="0"  />
+      <label style="font-size: small;" for="{{_id}}+1" class="black-text">{{options.[0]}}</label>
     </a>
 
       
-    <a class="collection-item card-panel grey lighten-3">
-      <input name="choice" type="radio" id="{{_id}}+2"  value="1" />
-      <label for="{{_id}}+2"  class="black-text">{{options.[1]}}</label>
+    <a class="collection-item card-panel grey lighten-3" style="padding: 5px;">
+      <input name="{{_id}}" type="radio" id="{{_id}}+2"  value="1" />
+      <label style="font-size: small;" for="{{_id}}+2"  class="black-text">{{options.[1]}}</label>
     </a>
     
-    <a class="collection-item card-panel grey lighten-3 ">
-      <input name="choice" type="radio" id="{{_id}}+3"   value="2" />
-      <label for="{{_id}}+3" class="black-text">{{options.[2]}}</label>
+    <a class="collection-item card-panel grey lighten-3 " style="padding: 5px;">
+      <input name="{{_id}}" type="radio" id="{{_id}}+3"   value="2" />
+      <label  style="font-size: small;" for="{{_id}}+3" class="black-text">{{options.[2]}}</label>
     </a>
     
-      <a class="collection-item card-panel grey lighten-3 ">
-        <input name="choice" type="radio" id="{{_id}}+4"  value="3" />
-        <label for="{{_id}}+4" class="black-text">{{options.[3]}}</label>
+      <a class="collection-item card-panel grey lighten-3 " style="padding: 5px;">
+        <input name="{{_id}}" type="radio" id="{{_id}}+4"  value="3" />
+        <label    style="font-size: small;" for="{{_id}}+4" class="black-text">{{options.[3]}}</label> 
     </a>
 
-    {{#if isQuestionCountGT1}}
-    <button class="btn blue-grey darken white-text" type="submit" id="loadNext"  > Next </button>
-   
-    {{/if}}
-    
+</div>
   
-      </form>
+
       <br>
 
 	{{/each}}
+
+    {{#if isQuestionCountGT1}}
+    <button style="width: 33.33333%;margin-left: 33.33%;" class="btn center-align blue-grey darken white-text" type="submit"   > Submit </button>
+   
+    {{/if}}
+
+        </form>
+
+          
+
+
 <!--     <button class="btn blue-grey darken white-text " id="skip" > Skip </button> -->
   <!-- <a id="submit1" class="btn align-center endQuiz">Submit Answers!</a> -->
 <!--     <button id="goback" class="btn blue-grey darken white-text align-center endQuiz">Go Back</button> -->
@@ -147,6 +157,12 @@
 	<br>
 	
    </div>
+     {{/if}}  
+ {{else}}
+      <div>
+    {{> loader}}
+    </div>
+  {{/if}}
 
 
 </template>

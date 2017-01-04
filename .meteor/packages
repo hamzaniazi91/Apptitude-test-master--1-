@@ -39,3 +39,8 @@ ostrio:files
 reactive-var
 reactive-dict
 nilsdannemann:pdfmake
+pcel:serialize
+momentjs:moment
+themeteorchef:jquery-validation
+jparker:crypto-md5
+harrison:papa-parse

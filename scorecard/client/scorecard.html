@@ -79,7 +79,7 @@
       </div>
       <div class="collapsible-body">
       <!-- <p>{{correctScore}} /  {{userScore}}</p> -->
-          <table class="striped">
+          <table id="table" class="striped">
         <thead>
           <tr>
               <th data-field="id">Particulars</th>
@@ -88,7 +88,9 @@
              <!--  <th data-field="id">Wrong Answers</th> -->
               <th data-field="price">Out of</th>
                 <th data-field="name">Score</th>
+                   <th data-field="price">Time</th>
               <th data-field="price">Result</th>
+           
           </tr>
         </thead>
 
@@ -101,6 +103,7 @@
    <!--          <td>%</td> -->
             <td>{{QuestionsCount}}</td>
              <td>{{ResultCacl}}%</td>
+              <td>{{Time}}</td>
             <td id=fr value={{FinalResult}}>{{FinalResult}}</td>
             
            

@@ -27,3 +27,16 @@
     background-color : #546e7a !important;
     box-shadow : 0 0 5px #546e7a !important;
 }
+
+
+.radio-group{
+  text-align: left;
+  margin: 0 10px 6px 10px;
+  font-family: Arial,Helvetica,Garuda,sans-serif;
+  font-size: 11px;
+  line-height:11px;
+}
+
+input[type='radio'], label{   
+    vertical-align: bottom;
+ }

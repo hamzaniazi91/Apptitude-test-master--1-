@@ -25,7 +25,7 @@ function userCursor2(user,sect,score){
  // console.log(Meteor.users.find({section:section1}, {no: {question: 1}}));
 
   //Results.find({ userId :  user}).count()
-
+console.log(  user +" " + sect +" " + score)
   return Results.find({ userId :  user , section : sect ,score : score}).count();
 
 
@@ -208,7 +208,7 @@ Template.scorecard.helpers({
   //console.log(Meteor.user().emails[0].address);
   //console.log(Sections.find());
 //console.log(this.section);
-        return Sections.find();
+        return Sections.find( { $or: [  { role: "All" } , { role: this.profile.position  } ] },{sort: { sort: 1 }} )
     },
 
       userEmail: function(){
@@ -233,8 +233,25 @@ Template.scorecard.helpers({
 
     console.log(Questions.find({section : this.section}).count());
 
-return Questions.find({section : this.section}).count();
+    var TotalLimitedQuestions  = Sections.findOne({section : this.section});
+
+return TotalLimitedQuestions.limit;
   },
+
+  Time : function(){
+
+     console.log("Time");
+
+
+
+     var Locked  = Lock.findOne({section : this.section , user : Template.parentData()._id})
+
+
+     console.log(Locked.timeCompletedinMins)
+     return Locked.timeCompletedinMins;
+
+  },
+
 
 
   ResultCacl : function (){
@@ -242,9 +259,9 @@ return Questions.find({section : this.section}).count();
     console.log(Template.instance());
 
     var correct = userCursor2(Template.parentData().emails[0].address , this.section, 1);
-     var totalQuestion = Questions.find({section : this.section}).count();
-if(totalQuestion !== 0 )
-     var resultDisplay =  Number((correct/totalQuestion) * 100).toFixed(1);
+     var totalQuestion = Sections.findOne({section : this.section});
+if(totalQuestion.limit !== 0 )
+     var resultDisplay =  Number((correct/totalQuestion.limit) * 100).toFixed(0);
    else
       return "Not Available"
      return resultDisplay ;
@@ -253,14 +270,15 @@ if(totalQuestion !== 0 )
 
   FinalResult : function(){
  var correct = userCursor2(Template.parentData().emails[0].address , this.section, 1);
-     var totalQuestion = Questions.find({section : this.section}).count();
 
-     var resultDisplay =  Number((correct/totalQuestion) * 100).toFixed(1);
+     var totalQuestion = Sections.findOne({section : this.section});
+
+     var resultDisplay =  Number((correct/totalQuestion.limit) * 100).toFixed(0);
 
     var attempted =  userCursor(Template.parentData().emails[0].address , this.section) ;
 
- if(attempted <  totalQuestion){
-        return "In Progress"
+ if(attempted <  totalQuestion.limit){
+        return "Incomplete"
       }
 
      else if(resultDisplay >= "50"){
@@ -288,6 +306,9 @@ if(totalQuestion !== 0 )
 
 //console.log(count);
   //	return count ;
+
+  console.log(Template.parentData().emails[0].address + " " + this.section +" "+ 1);
+
   return userCursor2(Template.parentData().emails[0].address , this.section, 1) ;
   },
 
@@ -361,8 +382,269 @@ console.log(Results.find().count());
 'click #export':function(event)
 {
   event.preventDefault();
+console.log(this);
 
-  var docDefinition = { content: 'My Text' };
+var email = this.emails[0].address;
+var userid = this._id
+
+var name=  [];
+var Attempted=  [];
+var Correct=  [];
+var Outof=  [];
+var Score=  [];
+var Result = [];
+
+var AttemptedTotal = [];
+var CorrectTotal  = [];
+var OutofTotal  = [];
+var ScoreTotal  = [];
+var ResultTotal  = [];
+var TimeLocked = [];
+
+ 
+
+var sections = Sections.find( { $or: [  { role: "All" } , { role: this.profile.position  } ] },{sort: { sort: 1 }} ).map(function(i){
+
+ 
+var Locked  = Lock.findOne({section : i.section , user : userid})
+
+     console.log(Locked + " " + i.section + " " + userid)
+     // return Locked.timeCompletedinMins;
+
+
+  
+   var correct = userCursor2(email , i.section , 1)
+     var totalQuestion = Sections.findOne({section : i.section});
+     var resultDisplay
+if(totalQuestion !== 0 )
+      resultDisplay =  Number((correct/totalQuestion.limit) * 100).toFixed(0);
+   else
+      resultDisplay = "Not Available"
+
+     console.log(i.section + email + "      " + userCursor(email , i.section ) + " " + userCursor2(email , i.section , 1) + " " + Questions.find({section : i.section}).count() + " " + resultDisplay);
+
+
+
+var Result2 = i.section  + "," + userCursor(email , i.section ) + "," + userCursor2(email , i.section , 1) + "," + Questions.find({section : i.section}).count() + "," + resultDisplay + ",Hamza";
+
+
+
+
+
+    var attempted =   userCursor(email , i.section );
+
+var FinalResult;
+
+ if(attempted <  totalQuestion.limit){
+
+        FinalResult = "Incomplete"
+        //return "In Progress"
+      }
+
+     else if(resultDisplay >= "50"){
+      //document.getElementById("fr").style.color="blue";
+      FinalResult = "Passed"
+      //return "Passed";
+    }
+      else{
+       //document.getElementById("fr").style.color="red";
+
+       FinalResult = "Failed"
+        //return "Failed"
+      }
+
+
+
+    
+  name.push({text : i.section })
+  Attempted.push({text : userCursor(email , i.section)  + " "}) 
+  Correct.push({text : userCursor2(email , i.section , 1)   + " " })   
+  Outof.push({text : totalQuestion.limit + " "})     
+  Score.push({text : resultDisplay + "%" })     
+  Result.push({text : FinalResult })   
+ TimeLocked.push({text  : Locked.timeCompletedinMins + ""}) 
+    
+    AttemptedTotal = Number(AttemptedTotal) + userCursor(email , i.section);
+    CorrectTotal = Number(CorrectTotal) + userCursor2(email , i.section , 1);
+     OutofTotal = Number(OutofTotal) + Number(totalQuestion.limit);
+
+
+   
+console.log("Attempted" + AttemptedTotal);
+
+      return Result;
+    });
+
+
+//console.log(stack);
+
+console.log(name);
+console.log(Attempted);
+console.log(Correct);
+console.log(Outof);
+console.log(Score);
+
+
+console.log(AttemptedTotal);
+console.log(CorrectTotal);
+console.log(OutofTotal);
+console.log(TimeLocked);
+
+AttemptedTotal = AttemptedTotal.toString();
+CorrectTotal = CorrectTotal.toString();
+OutofTotal = OutofTotal.toString();
+
+  FinalPercent  = Number((CorrectTotal/OutofTotal) * 100).toFixed(0);
+
+  console.log(FinalPercent);
+
+  var Conclude;
+
+if(FinalPercent > 50)
+  Conclude= "Passed"
+else
+  Conclude="Failed"
+
+
+console.log(this);
+
+
+  // var docDefinition = { content: "UserEmail =" + this.emails[0].address  + " "  + userCursor(this.emails[0].address , this.section)  };
+var docDefinition = { 
+      // pageSize: 'A4',
+   pageOrientation: 'landscape',
+
+
+
+      
+      // Content with styles 
+      content: [
+        // { text: this.emails[0].address, style: 'headline' },
+
+        //  { text: 'Phone: ' + this.profile.number, style: ['listItem', 'listLabel']  },
+        //  { text: 'Cnic:'  + this.profile.cnic, style: ['listItem', 'listLabel'] },
+        //   { text: 'Position:'  + this.profile.position, style: ['listItem', 'listLabel'] },
+    
+          { text: "Online Test Report", style: 'headline' ,alignment: 'center' },
+              { text: "Profile of '"+this.username+"'" , style: 'myText' ,alignment: 'center' },
+        {
+
+
+          columns: [
+            { width: '20%', text: 'Name :', style: ['listItem', 'listLabel'] },
+            { width: '30%', text: this.username, style: ['listItem', 'listText'] },
+            { width: '20%', text: 'Position Applied For :', style: ['listItem', 'listLabel'] },
+            { width: '35%', text: this.profile.position, style: ['listItem', 'listText'] }
+          ],
+          columnGap: 10
+        },
+
+         {
+          columns: [
+            { width: '20%', text: 'Father Name:', style: ['listItem', 'listLabel'] },
+            { width: '30%', text: this.profile.father, style: ['listItem', 'listText'] },
+            { width: '20%', text: 'City:', style: ['listItem', 'listLabel'] },
+            { width: '35%', text: this.profile.City, style: ['listItem', 'listText'] }
+          ],
+          columnGap: 10
+        },
+
+         {
+          columns: [
+            { width: '20%', text: 'CNIC:', style: ['listItem', 'listLabel'] },
+            { width: '30%', text: this.profile.cnic, style: ['listItem', 'listText'] },
+            { width: '20%', text: 'Date:', style: ['listItem', 'listLabel'] },
+            { width: '35%', text: this.profile.Date, style: ['listItem', 'listText'] }
+          ],
+          columnGap: 10
+        },
+
+
+
+         {
+          columns: [
+            { width: '20%', text: 'Contact Number:', style: ['listItem', 'listLabel'] },
+            { width: '30%', text: this.profile.number, style: ['listItem', 'listText'] },
+            { width: '20%', text: 'Venue Of Test:', style: ['listItem', 'listLabel'] },
+            { width: '35%', text: this.profile.Venue, style: ['listItem', 'listText'] }
+          ],
+          columnGap: 10
+        },
+
+
+
+         {
+          columns: [
+            { width: '20%', text: 'Email Address:', style: ['listItem', 'listLabel'] },
+            { width: '30%', text: this.emails[0].address, style: ['listItem', 'listText'] },
+            { width: '20%', text: 'Region:', style: ['listItem', 'listLabel'] },
+            { width: '35%', text: this.profile.Regional, style: ['listItem', 'listText'] }
+          ],
+          columnGap: 10
+        },
+
+       {
+          columns: [
+            { width: '20%', text: 'Present Address:', style: ['listItem', 'listLabel'] },
+            { width: '30%', text: this.profile.Address, style: ['listItem', 'listText'] },
+            { width: '20%', text: 'Area:', style: ['listItem', 'listLabel'] },
+            { width: '35%', text: this.profile.Area, style: ['listItem', 'listText'] }
+          ],
+          columnGap: 10
+        },
+ {
+           columns: [
+           
+            { width: '20%', text: 'Department:', style: ['listItem', 'listLabel'] },
+            { width: '30%', text: this.profile.Department, style: ['listItem', 'listText'] }
+          ],
+          columnGap: 10
+        },
+
+
+
+
+
+     
+        // sections,
+{
+        table: {
+        // headers are automatically repeated if the table spans over multiple pages
+        // you can declare how many rows should be treated as headers
+        headerRows: 1,
+        widths: [ '*' , 'auto' , 'auto' , 'auto' , 'auto' ,'auto', 'auto' ],
+
+        body: [
+
+          [ 'Particulars' ,'Attempted' ,'Correct' ,'Out of' ,'Score %' ,'time','Result'],
+          [ name  , Attempted , Correct, Outof  ,  Score,TimeLocked, Result ] ,
+          [ "Total"  , AttemptedTotal , CorrectTotal, OutofTotal  ,  FinalPercent+"%" ,"TT", Conclude ,  ] 
+
+     
+ 
+   
+     
+     
+    
+       
+        ]
+      }
+},
+     { text: 'Note : It is System generated report and does not require any signature', fontSize: 8 },
+
+
+
+      ],
+      
+      // Style dictionary 
+      styles: {
+        headline: { fontSize: 25, bold: true, margin: [0, 0, 0, 5] },
+        listItem: { fontSize: 14, margin: [0, 0, 0, 5] },
+        listLabel: { fontSize: 10 ,bold: true },
+        listText: {  fontSize: 10 , italic: true },
+        myText: { fontSize: 15 ,bold: true , margin: [0, 0, 0, 10] },
+      }
+    };
   pdfMake.createPdf(docDefinition).open();
 console.log(event);
 }

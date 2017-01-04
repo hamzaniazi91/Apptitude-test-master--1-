@@ -129,6 +129,9 @@ Template.admin.rendered = function(){
  //        }); 
 
 
+
+
+
  }
 
 
@@ -143,6 +146,8 @@ console.log(document.getElementById('h1').value());
 
 Template.admin.onCreated(function(){
 
+
+         
 
 //  setTimeout(function() {console.log(Meteor.userId() + Meteor.users.findOne());
 // console.log(Roles.userIsInRole(Meteor.user(), 'admin' ));
@@ -242,14 +247,58 @@ console.log(this.section);
 Template.admin.events({
 
 
+    "click .btnReadCsv": function(event, template) {
+      Papa.parse(template.find('#csv-file').files[0], {
+          header: true,
+
+          complete: function(results) {
+               _.each(results.data, function(csvData) {
+                console.log(csvData)
+                var arrayOptions = []
+                   console.log(csvData.section + ' , ' + csvData.question + ' , ' + csvData.option0 + ' , ' + csvData.option1 + ' , ' + csvData.option2 + ' , ' + csvData.option3 + ' , ' + csvData.answer
+);               
+
+                   arrayOptions.push(csvData.option0)
+                   arrayOptions.push(csvData.option1)
+                   arrayOptions.push(csvData.option2)
+                   arrayOptions.push(csvData.option3)
+
+                   console.log(arrayOptions)
+
+                   var Qnumber= Questions.find({section : csvData.section}).count() + 1 ;
+
+                   Questions.insert({no : Qnumber , options : arrayOptions , section: csvData.section, question: csvData.question , answer : parseInt(csvData.answer) , createdAt : new Date()   })
+
+
+               });
+          },
+          skipEmptyLines: true
+      });
+   } ,
+
 
   'click #delete0': function (event) {
     event.preventDefault();
     var objToDelete = this;
+    var Section = Sections.findOne({_id: objToDelete._id})
+    var SectionName = Section.section;
+    var QuestionsToDelete = Questions.find({section : SectionName}).fetch()
+    console.log(SectionName)
     console.log(objToDelete);
+
+    var qs = Questions.find().fetch();
+ console.log( qs)
+  _.each(QuestionsToDelete, function(question) {
+    console.log( question._id)
+    console.log(question._id)
+      Questions.remove({ _id : question._id });
+    });
+
+
     // checks if the actual clicked element has the class `deletebtn `
     if (event.target.id == "delete0") {
      Sections.remove(objToDelete._id)
+
     }
   },
 
@@ -287,15 +336,40 @@ console.log (event.currentTarget.innerText)
 	'click #addSection': function(event){
 
 		var sec = document.getElementById('section').value;
-    var timer = document.getElementById('timer').value;
+    var timer2 = document.getElementById('timer').value;
+    var limit = document.getElementById('limit').value;
+
+    var position2;
+
+
+var select = document.getElementById("position2");
+var position2 = select.options[select.selectedIndex].value;
+
+
+    console.log( answer);
+
+$('#position2').change(function(){
+  console.log(this.value);
+   var id = $(this).find(':selected')[0].id;
+   // alert("chjabsd" + id)
+  // console.log($('#position2').val(id));
+position2 = this.value;
+})
+
+
+    d = moment.duration({s: timer2});
+console.log( moment().startOf('day').add(d).format('mm:ss') )
+
+var timer =   moment().startOf('day').add(d).format('mm:ss') 
+
 
 		console.log(sec);
-if(!sec || !timer){
+if(!sec || !timer || !limit){
 
-Materialize.toast('Enter Section name and timer', 2000);
+Materialize.toast('Enter Section name , timer and limit', 2000);
 }
 else{
-    Sections.insert({section : sec , time : timer , createdAt : new Date()});
+    Sections.insert({role : position2 , section : sec , time : timer2 ,timeInMinutes : timer , limit : limit, createdAt : new Date()});
 }
 	
 
@@ -343,7 +417,7 @@ else if(answer===option3){
 
 //console.log(Questions.find().count());
 
-var Qnumber= Questions.find().count() + 1 ;
+var Qnumber= Questions.find({section : sec}).count() + 1 ;
 
 var DuplicateQues = Questions.find({question:que}).count()
 console.log(DuplicateQues);

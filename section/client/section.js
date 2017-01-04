@@ -20,7 +20,7 @@ Template.section.rendered = function () {
 
 	var ddd =  this.findAll(':header');
   console.log("HAMZA KHAN NIAZI23");
-
+//console.log(Sections.find( { $or: [  { role: "All" } , { role: Meteor.user().profile.position  } ] },{sort: { sort: 1 }} ));
   _dep.changed();
 
 }
@@ -137,10 +137,51 @@ Template.section.helpers({
 
 	//var count = Results.find({userId  : Meteor.userId() , })
 
-	return Sections.find();
+	// return Sections.find({},{sort: { sort: 1 }} )
+
+console.log("role = " + Meteor.user().profile.position)
+var Tracker =  Sections.find( { $or: [  { role: "All" } , { role: Meteor.user().profile.position  } ] },{sort: { sort: 1 }} )
+
+_dep.changed();
+	return Tracker
+
+
 
 },
 
+
+Minutes : function(){
+
+
+var Section = Sections.find({ $or: [  { role: "All" } , { role: Meteor.user().profile.position  } ] }).fetch(); 
+var Time  = 0;
+console.log(Section)
+  _.each(Section, function(s) {
+    console.log( s.time)
+    Time = Number(Time)  + Number(s.time);
+
+   	//console.log(Time)
+
+    });
+
+console.log(Time );
+
+console.log(moment()
+    .seconds("3000")
+    .format('mm:ss'));
+
+d = moment.duration({s: Time});
+
+
+
+console.log(d)
+console.log( moment.utc(d._milliseconds).format('HH:mm:ss') )
+
+var Finalized =   moment.utc(d._milliseconds).format('HH:mm:ss') 
+
+return Finalized;
+
+},
 
 LockSection : function(){
 
@@ -155,13 +196,20 @@ LockSection : function(){
 	_dep.depend();
 
 
-
+console.log(_dep)
 
 console.log(this.section);
 //console.log(Lock.find({section : this.section , user : Meteor.userId()}).fetch());
 
 var count = Lock.find({section : this.section , user : Meteor.userId()}).count()
 
+	 Tracker.autorun(function(){
+    
+var Tracker2 =  Sections.find( { $or: [  { role: "All" } , { role: Meteor.user().profile.position  } ] },{sort: { sort: 1 }} )
+console.log(Tracker2)
+    Tracker.afterFlush(function(){
+
+      console.log("flush Ready")
 
 
 console.log(count);
@@ -172,11 +220,11 @@ console.log(element)
 element.setAttribute('style', "background:grey !important ;margin-bottom:0");
 
 
-var element = document.getElementById(this.section + "+2");
-console.log(element)
-//element.setAttribute('style', 'display:inline !important');
-element.setAttribute('style', "background:grey !important ;margin-bottom:0");
-//element.setAttribute('style',"");
+// var element = document.getElementById(this.section + "+2");
+// console.log(element)
+// //element.setAttribute('style', 'display:inline !important');
+// element.setAttribute('style', "background:grey !important ;margin-bottom:0");
+// //element.setAttribute('style',"");
 }
 	else 
 {
@@ -186,6 +234,12 @@ console.log(name);
 
 	}
 //return this.section;
+
+    
+    }.bind(this));
+  }.bind(this));
+
+
 
 	}
 
